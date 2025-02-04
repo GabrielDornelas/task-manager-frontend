@@ -2,19 +2,24 @@ services:
   frontend:
     build:
       context: .
-      target: build-stage
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:5000
     ports:
-      - '8080:8080'
+      - '8080:80'
     volumes:
       - .:/app
       - /app/node_modules
     environment:
-      - VITE_API_URL=${VITE_API_URL}
-    command: npm run dev
+      - VITE_API_URL=http://localhost:5000
     networks:
-      - task-manager-network
+      - app-network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:80/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
-  task-manager-network:
-    name: task-manager-network
-    external: true
+  app-network:
+    driver: bridge
