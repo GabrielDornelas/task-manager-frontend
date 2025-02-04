@@ -13,21 +13,21 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
-    async login(email, password) {
+    async login(username, password) {
+      this.loading = true
       try {
-        this.loading = true
-        const response = await api.post('/auth/login', { email, password })
+        const response = await api.post('/auth/login', { username, password })
         this.token = response.data.token
         localStorage.setItem('token', this.token)
         return true
-      } catch (error) {
-        throw error
       } finally {
         this.loading = false
       }
     },
 
     async logout() {
+      if (!this.token) return
+
       try {
         await api.post('/auth/logout')
       } catch (error) {
@@ -39,22 +39,22 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async requestPasswordReset(email) {
+    async register(username, email, password) {
+      this.loading = true
       try {
-        await api.post('/auth/reset-password-request', { email })
+        await api.post('/auth/register', { username, email, password })
         return true
-      } catch (error) {
-        throw error
+      } finally {
+        this.loading = false
       }
     },
 
+    async requestPasswordReset(email) {
+      return await api.post('/auth/reset-password-request', { email })
+    },
+
     async resetPassword(token, newPassword) {
-      try {
-        await api.post('/auth/reset-password', { token, password: newPassword })
-        return true
-      } catch (error) {
-        throw error
-      }
+      return await api.post('/auth/reset-password', { token, password: newPassword })
     },
   },
 })

@@ -22,7 +22,7 @@
       <q-list>
         <q-item-label header>Menu</q-item-label>
 
-        <q-item clickable v-ripple :to="{ name: 'tasks' }" exact>
+        <q-item clickable v-ripple :to="{ name: 'task' }" exact>
           <q-item-section avatar>
             <q-icon name="task" />
           </q-item-section>

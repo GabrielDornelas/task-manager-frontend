@@ -1,30 +1,36 @@
 const routes = [
   {
     path: '/',
+    redirect: () => {
+      return { name: 'task' }
+    },
+  },
+  {
+    path: '/',
     component: () => import('layouts/MainLayout.vue'),
+    meta: { requiresAuth: true },
     children: [
       {
-        path: '',
-        name: 'home',
-        component: () => import('pages/IndexPage.vue'),
-        meta: { requiresAuth: true },
-      },
-      {
-        path: 'tasks',
-        name: 'tasks',
-        component: () => import('pages/TasksPage.vue'),
-        meta: { requiresAuth: true },
+        path: 'task',
+        name: 'task',
+        component: () => import('src/pages/TaskPage.vue'),
       },
     ],
   },
   {
     path: '/auth',
     component: () => import('layouts/AuthLayout.vue'),
+    meta: { guest: true },
     children: [
       {
         path: 'login',
         name: 'login',
         component: () => import('pages/auth/LoginPage.vue'),
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: () => import('pages/auth/RegisterPage.vue'),
       },
       {
         path: 'request-reset',

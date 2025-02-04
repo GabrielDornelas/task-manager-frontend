@@ -7,7 +7,7 @@
 
     <q-card flat bordered>
       <q-table
-        :rows="taskStore.tasks"
+        :rows="taskStore.task"
         :columns="columns"
         row-key="id"
         :loading="taskStore.loading"
@@ -63,13 +63,13 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from 'vue'
-import { useTaskStore } from 'stores/tasks'
+import { defineComponent, ref, onMounted, computed } from 'vue'
+import { useTaskStore } from 'src/stores/task'
 import { useQuasar } from 'quasar'
-import TaskForm from 'components/tasks/TaskForm.vue'
+import TaskForm from 'components/task/TaskForm.vue'
 
 export default defineComponent({
-  name: 'TasksPage',
+  name: 'TaskPage',
 
   components: {
     TaskForm,
@@ -86,13 +86,34 @@ export default defineComponent({
     const columns = [
       { name: 'title', label: 'Título', field: 'title', sortable: true },
       { name: 'description', label: 'Descrição', field: 'description' },
-      { name: 'due_date', label: 'Vencimento', field: 'due_date', sortable: true },
+      {
+        name: 'expire_date',
+        label: 'Vencimento',
+        field: 'expire_date',
+        sortable: true,
+        format: (val) => {
+          if (!val) return ''
+          const date = new Date(val)
+          return date.toLocaleDateString('pt-BR')
+        },
+      },
       { name: 'status', label: 'Status', field: 'status', sortable: true },
+      {
+        name: 'created_at',
+        label: 'Criada em',
+        field: 'created_at',
+        sortable: true,
+        format: (val) => {
+          if (!val) return ''
+          const date = new Date(val)
+          return date.toLocaleDateString('pt-BR')
+        },
+      },
       { name: 'actions', label: 'Ações', field: 'actions' },
     ]
 
-    onMounted(async () => {
-      await taskStore.fetchTasks()
+    onMounted(() => {
+      taskStore.fetchTasks()
     })
 
     const openTaskDialog = (task = null) => {
@@ -105,16 +126,26 @@ export default defineComponent({
         formLoading.value = true
         if (currentTask.value?.id) {
           await taskStore.updateTask(currentTask.value.id, formData)
-          $q.notify({ type: 'positive', message: 'Tarefa atualizada com sucesso' })
+          $q.notify({
+            type: 'positive',
+            message: 'Tarefa atualizada com sucesso',
+            position: 'top',
+          })
         } else {
           await taskStore.createTask(formData)
-          $q.notify({ type: 'positive', message: 'Tarefa criada com sucesso' })
+          $q.notify({
+            type: 'positive',
+            message: 'Tarefa criada com sucesso',
+            position: 'top',
+          })
         }
         taskDialog.value = false
+        await taskStore.fetchTasks()
       } catch (error) {
         $q.notify({
           type: 'negative',
-          message: `Erro ${error.response?.data?.message} ao salvar tarefa`,
+          message: error.response?.data?.message || 'Erro ao salvar tarefa',
+          position: 'top',
         })
       } finally {
         formLoading.value = false
@@ -125,18 +156,35 @@ export default defineComponent({
       $q.dialog({
         title: 'Confirmar exclusão',
         message: 'Tem certeza que deseja excluir esta tarefa?',
-        cancel: true,
         persistent: true,
-      }).onOk(async () => {
-        try {
-          await taskStore.deleteTask(task.id)
-          $q.notify({ type: 'positive', message: 'Tarefa excluída com sucesso' })
-        } catch (error) {
-          $q.notify({
-            type: 'negative',
-            message: `Erro ${error.response?.data?.message} ao excluir tarefa`,
+        ok: {
+          label: 'Confirmar',
+          color: 'negative',
+          flat: true,
+        },
+        cancel: {
+          label: 'Cancelar',
+          color: 'grey',
+          flat: true,
+        },
+      }).onOk(() => {
+        return taskStore
+          .deleteTask(task.id)
+          .then(() => {
+            $q.notify({
+              type: 'positive',
+              message: 'Tarefa excluída com sucesso',
+              position: 'top',
+            })
           })
-        }
+          .catch((error) => {
+            console.error('Erro ao excluir tarefa:', error)
+            $q.notify({
+              type: 'negative',
+              message: error.response?.data?.message || 'Erro ao excluir tarefa',
+              position: 'top',
+            })
+          })
       })
     }
 
