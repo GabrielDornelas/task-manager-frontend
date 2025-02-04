@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore, acceptHMRUpdate } from 'pinia'
 import { api } from 'src/boot/axios'
 import { ref } from 'vue'
 
@@ -88,3 +88,7 @@ export const useTaskStore = defineStore('task', () => {
     setCurrentTask,
   }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useTaskStore, import.meta.hot))
+}

@@ -11,6 +11,9 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
+    'Cache-Control': 'no-cache',
+    Pragma: 'no-cache',
+    Expires: '0',
   },
   // Desabilitar cache globalmente
   cache: false,
@@ -24,6 +27,7 @@ api.interceptors.request.use((config) => {
   }
   // Remover o header Access-Control-Allow-Credentials do cliente
   delete config.headers['Access-Control-Allow-Credentials']
+  config.headers['Cache-Control'] = 'no-cache'
   return config
 })
 

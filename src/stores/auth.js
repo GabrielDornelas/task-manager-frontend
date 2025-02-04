@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore, acceptHMRUpdate } from 'pinia'
 import { api } from 'boot/axios'
 
 export const useAuthStore = defineStore('auth', {
@@ -58,3 +58,7 @@ export const useAuthStore = defineStore('auth', {
     },
   },
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAuthStore, import.meta.hot))
+}
