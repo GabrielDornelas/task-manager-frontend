@@ -12,7 +12,11 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
-    "postinstall": "quasar prepare"
+    "postinstall": "quasar prepare",
+    "docker:build": "docker build -t task-manager-frontend .",
+    "docker:run": "docker run -p 80:80 task-manager-frontend",
+    "docker:dev": "docker-compose up",
+    "docker:stop": "docker-compose down"
   },
   "dependencies": {
     "axios": "^1.2.1",
