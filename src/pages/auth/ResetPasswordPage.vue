@@ -8,7 +8,7 @@
       label="Nova Senha"
       :rules="[
         (val) => !!val || 'Senha é obrigatória',
-        (val) => val.length >= 6 || 'A senha deve ter no mínimo 6 caracteres',
+        (val) => val.length >= 3 || 'A senha deve ter no mínimo 3 caracteres',
       ]"
     >
       <template v-slot:append>
@@ -80,7 +80,7 @@ export default defineComponent({
     const $q = useQuasar()
 
     onMounted(() => {
-      token.value = route.query.token
+      token.value = route.params.token
       if (!token.value) {
         $q.notify({
           type: 'negative',
