@@ -18,20 +18,21 @@ RUN npm install
 RUN npm run build
 
 # Estágio de produção
-FROM nginx:stable-alpine as production-stage
+# FROM nginx:stable-alpine as production-stage
 
 # Instalar curl para healthcheck
-RUN apk add --no-cache curl
+# RUN apk add --no-cache curl
 
 # Copiar configuração do nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+# COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copiar arquivos de build
-COPY --from=build-stage /app/dist/spa /usr/share/nginx/html
+
+# COPY --from=build-stage /app/dist/spa /usr/share/nginx/html
 
 # Verificar se os arquivos foram copiados corretamente
-RUN ls -la /usr/share/nginx/html
+# RUN ls -la /usr/share/nginx/html
 
-EXPOSE 80
+# EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "run", "dev"]
