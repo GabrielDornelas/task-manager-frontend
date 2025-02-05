@@ -4,7 +4,7 @@
 
 Este é o frontend do projeto de Gerenciador de Tarefas, uma aplicação web que permite aos usuários gerenciar tarefas com autenticação. O frontend foi desenvolvido com Vue.js e Quasar Framework, focando principalmente em dispositivos móveis.
 
-## Funcionalidades
+## 🚀 Funcionalidades
 
 - Login/logout de usuários com autenticação JWT
 - Solicitação de redefinição de senha
@@ -13,7 +13,7 @@ Este é o frontend do projeto de Gerenciador de Tarefas, uma aplicação web que
 - Interface responsiva e intuitiva
 - Gerenciamento de estado global com Pinia Store
 
-## Tecnologias Utilizadas
+## 🛠️ Tecnologias
 
 - Vue.js
 - Quasar Framework
@@ -21,14 +21,12 @@ Este é o frontend do projeto de Gerenciador de Tarefas, uma aplicação web que
 - Docker
 - Axios para requisições HTTP
 
-## Como Executar
-
-### Pré-requisitos
+## 📋 Pré-requisitos
 
 - Docker instalado
 - Arquivo .env configurado (ver seção de variáveis de ambiente)
 
-### Usando Docker
+### 🐋 Usando Docker
 
 1. Clone o repositório:
 
@@ -46,14 +44,18 @@ docker build -t gerenciador-tarefas-frontend .
 
 docker run -p 8080:80 gerenciador-tarefas-frontend
 
-### Variáveis de Ambiente
+## 🔐 Variáveis de Ambiente
+
+Veja `.env.example` para todas as variáveis necessárias e suas descrições.
 
 Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
-VITE_API_URL=http://localhost:5000/api
-VITE_APP_TITLE=Gerenciador de Tarefas
+Variáveis obrigatórias:
 
-## Estrutura do Projeto
+- `VITE_API_URL`: URL da API (backend)
+- `VITE_APP_TITLE`: Título da aplicação
+
+## 📦 Estrutura do Projeto
 
 src/<br>
 ├── components/ # Componentes Vue reutilizáveis<br>
@@ -86,7 +88,7 @@ src/<br>
 - Suporte a gestos touch
 - Interface adaptativa para desktop
 
-## Desenvolvimento
+## 🖱️ Desenvolvimento
 
 ### Pré-requisitos para Desenvolvimento
 
@@ -108,7 +110,7 @@ npm run build
 Executar linter
 npm run lint
 
-## Contribuindo
+## 🤝 Contribuindo
 
 1. Faça um fork do projeto
 2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
@@ -116,6 +118,6 @@ npm run lint
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
-## Licença
+## 📝 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
