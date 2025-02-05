@@ -32,17 +32,17 @@ Este é o frontend do projeto de Gerenciador de Tarefas, uma aplicação web que
 
 git clone https://github.com/GabrielDornelas/task-manager-frontend.git
 
-cd gerenciador-tarefas-frontend
+cd task-manager-frontend
 
 2. Configure o arquivo .env:
 
 cp .env.example .env
 
-3. Construa e execute o container:
+(Edite com seus dados)
 
-docker build -t gerenciador-tarefas-frontend .
+3. Execute o projeto pelo docker:
 
-docker run -p 8080:80 gerenciador-tarefas-frontend
+docker-compose up
 
 ## 🔐 Variáveis de Ambiente
 
