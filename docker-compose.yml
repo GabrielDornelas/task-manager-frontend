@@ -6,7 +6,7 @@ services:
       args:
         - VITE_API_URL=http://localhost:5000
     ports:
-      - '8080:9000'
+      - '9000:9000'
     volumes:
       - .:/app
       - /app/node_modules
@@ -15,11 +15,6 @@ services:
       - CHOKIDAR_USEPOLLING=true
     networks:
       - app-network
-    healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:80/health']
-      interval: 30s
-      timeout: 10s
-      retries: 3
 
 networks:
   app-network:
