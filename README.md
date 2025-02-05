@@ -33,6 +33,7 @@ Este é o frontend do projeto de Gerenciador de Tarefas, uma aplicação web que
 1. Clone o repositório:
 
 git clone https://github.com/GabrielDornelas/task-manager-frontend.git
+
 cd gerenciador-tarefas-frontend
 
 2. Configure o arquivo .env:
@@ -42,6 +43,7 @@ cp .env.example .env
 3. Construa e execute o container:
 
 docker build -t gerenciador-tarefas-frontend .
+
 docker run -p 8080:80 gerenciador-tarefas-frontend
 
 ### Variáveis de Ambiente
@@ -58,14 +60,14 @@ src/<br>
 ├── layouts/ # Layouts da aplicação<br>
 ├── pages/ # Páginas da aplicação<br>
 ├── stores/ # Stores Pinia<br>
-├── services/ # Serviços de API<br>
-└── utils/ # Utilitários e helpers<br>
+└── boot/axios.js # Configuração da API<br>
 
 ## Funcionalidades Detalhadas
 
 ### Autenticação
 
 - Sistema completo de login/logout
+
 - Armazenamento seguro do token JWT
 - Renovação automática do token
 - Redirecionamento para login quando token expirar
@@ -88,7 +90,7 @@ src/<br>
 
 ### Pré-requisitos para Desenvolvimento
 
-- Node.js >= 16
+- Node.js >= 18
 - npm ou yarn
 - Vue CLI
 
