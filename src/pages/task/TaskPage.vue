@@ -15,7 +15,6 @@
       />
     </div>
 
-    <!-- Diálogo para criar/editar tarefa -->
     <q-dialog v-model="taskDialog" persistent>
       <q-card style="min-width: 350px">
         <q-card-section class="row items-center q-pb-none">

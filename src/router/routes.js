@@ -13,7 +13,30 @@ const routes = [
       {
         path: 'task',
         name: 'task',
-        component: () => import('src/pages/TaskPage.vue'),
+        component: () => import('src/pages/task/TaskPage.vue'),
+      },
+      {
+        path: 'metrics',
+        name: 'metrics',
+        component: () => import('src/pages/metrics/MetricsPage.vue'),
+      },
+      {
+        path: 'health',
+        name: 'health',
+        component: () => import('src/pages/health/HealthPage.vue'),
+      },
+      {
+        path: 'swagger',
+        name: 'swagger',
+        beforeEnter(to, from, next) {
+          const previousRoute = from.name
+          window.open(`${import.meta.env.VITE_API_URL}/swagger`, '_blank')
+          if (previousRoute) {
+            next({ name: previousRoute })
+          } else {
+            next({ name: 'task' })
+          }
+        },
       },
     ],
   },
@@ -44,9 +67,6 @@ const routes = [
       },
     ],
   },
-
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),

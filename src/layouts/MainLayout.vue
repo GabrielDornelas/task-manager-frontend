@@ -24,9 +24,30 @@
 
         <q-item clickable v-ripple :to="{ name: 'task' }" exact>
           <q-item-section avatar>
-            <q-icon name="task" />
+            <q-icon name="assignment" />
           </q-item-section>
           <q-item-section>Tarefas</q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple :to="{ name: 'metrics' }" exact>
+          <q-item-section avatar>
+            <q-icon name="bar_chart" />
+          </q-item-section>
+          <q-item-section>Métricas</q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple :to="{ name: 'health' }" exact>
+          <q-item-section avatar>
+            <q-icon name="health_and_safety" />
+          </q-item-section>
+          <q-item-section>Saúde da Aplicação</q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple :to="{ name: 'swagger' }" exact>
+          <q-item-section avatar>
+            <q-icon name="description" />
+          </q-item-section>
+          <q-item-section>Documentação Swagger</q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
