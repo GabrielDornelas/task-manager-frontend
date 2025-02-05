@@ -5,7 +5,7 @@
     </div>
     <q-card v-if="metrics">
       <q-card-section>
-        <div><strong>Usuários Ativos:</strong> {{ metrics.active_users }}</div>
+        <div><strong>Usuários Ativos nas últimas 24 horas:</strong> {{ metrics.active_users }}</div>
         <div><strong>Tarefas por Status:</strong></div>
         <ul>
           <li v-for="(count, status) in metrics.tasks_by_status" :key="status">
@@ -13,9 +13,8 @@
           </li>
         </ul>
         <div>
-          <strong>Tempo Médio de Resposta:</strong> {{ metrics.avg_response_time }} segundos
+          <strong>Tempo Médio de Resposta da API:</strong> {{ metrics.avg_response_time }} segundos
         </div>
-        <div><strong>Taxa de Erros:</strong> {{ metrics.error_rate }}%</div>
       </q-card-section>
     </q-card>
     <q-spinner v-if="loading" />
